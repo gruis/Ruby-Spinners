@@ -18,6 +18,7 @@ module Spinner
     #
     # TBD
     def start(args = {})
+      return unless STDOUT.tty?
       @@params.merge!(args)
       spos        = pos = (@@params[:len] / 2)
       size        = @@params[:sweeper_size]
@@ -80,6 +81,7 @@ module Spinner
     #
     # TBD
     def stop
+      return unless STDOUT.tty?
       @thrd.kill
       print (0..@@params[:len] + @@params[:format].length).to_a.inject("\r"){ |str| str << " " } + "\r"
     end # self.stop
@@ -92,6 +94,7 @@ module Spinner
     #
     # TBD
     def start(args = {})
+      return unless STDOUT.tty?
       @@params.merge!(args)
       @thrd = Thread.new do
         while true
@@ -106,6 +109,7 @@ module Spinner
     #
     # TBD
     def stop
+      return unless STDOUT.tty?
       @thrd.kill
       print (0..@@params[:format].length).to_a.inject("\r"){ |str| str << " " } + "\r"
     end # stop
